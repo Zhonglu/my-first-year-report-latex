@@ -1,0 +1,80 @@
+TY  - ELEC
+TI  - About FEM
+UR  - https://intranet.birmingham.ac.uk/collaboration/hpc-research/fem/about/index.aspx
+Y2  - 2016/07/26
+PY  - 2016
+ER  - 
+TY  - JOUR
+AU  - Bearman, P.
+T2  - Annual Review of Fluid Mechanics
+DO  - 10.1146/annurev.fluid.16.1.195
+SN  - 0066-4189
+IS  - 1
+SP  - 195-222
+PB  - Annual Reviews
+TI  - Vortex shedding from oscillating bluff bodies
+VL  - 16
+PY  - 1984
+DA  - 1984/01/01
+ER  - 
+TY  - RPRT
+AU  - De Weck, Olivier
+AU  - Il, Yong
+TI  - Finite element method MIT lecture note
+UR  - http://web.mit.edu/16.810/www/16.810_L4_CAE.pdf
+Y2  - 2016/07/26
+PY  - 2004
+ER  - 
+TY  - ENCYC
+T2  - Wikipedia
+PB  - Wikimedia Foundation
+TI  - Finite element method
+UR  - https://en.wikipedia.org/wiki/Finite_element_method
+Y2  - 2016/07/26
+PY  - 2016
+DA  - 2016/07/06
+ER  - 
+TY  - ENCYC
+T2  - Wikipedia
+PB  - Wikimedia Foundation
+TI  - Galerkin method
+UR  - https://en.wikipedia.org/wiki/Galerkin_method
+Y2  - 2016/07/27
+PY  - 2016
+DA  - 2016/03/14
+ER  - 
+TY  - ELEC
+TI  - K-omega models -- CFD-Wiki, the free CFD reference
+UR  - http://www.cfd-online.com/Wiki/K-omega_models
+Y2  - 2016/07/28
+PY  - 2016
+DA  - 2016/01/02
+ER  - 
+TY  - ENCYC
+T2  - Wikipedia
+PB  - Wikimedia Foundation
+TI  - K–omega turbulence model
+UR  - https://en.wikipedia.org/wiki/K%E2%80%93omega_turbulence_model#CITEREFWilcox2008
+Y2  - 2016/07/28
+PY  - 2016
+DA  - 2016/04/22
+ER  - 
+TY  - ELEC
+TI  - SST k-omega model -- CFD-Wiki, the free CFD reference
+UR  - http://www.cfd-online.com/Wiki/SST_k-omega_model
+Y2  - 2016/07/28
+PY  - 2016
+DA  - 2016/01/02
+ER  - 
+TY  - JOUR
+AU  - Zhao, Ming
+T2  - Physics of Fluids
+DO  - 10.1063/1.4832956
+SN  - 1070-6631
+IS  - 12
+SP  - 123601
+PB  - AIP Publishing
+TI  - Flow induced vibration of two rigidly coupled circular cylinders in tandem and side-by-side arrangements at a low Reynolds number of 150
+VL  - 25
+PY  - 2013
+ER  - 

@@ -1,0 +1,149 @@
+\chapter{Numerical Method} \label{cha Numerical Method}
+%from Prof. Zhao \cite{Zhao2013a}
+
+The physics of multi-cylinder interaction was simulated by a numerical model --- an in-house FORTRAN code provided by Prof. Ming Zhao from Western Sydney University. The code uses the streamlined upwind Petrov-Galerkin finite element method (FEM) with arbitrary Lagrangian-Eulerian (ALE) method and solves the two-dimensional (2D) Navier-Stokes equations directly (DNS) to simulate the case presented in \Cref{sec:casesetup}.
+
+Therefore, this chapter introduces the governing equations (\Cref{sec governing eq}) of the numerical model, the implemented FEM (\Cref{sec fem}) and ALE (\Cref{sec ALE}) algorithms, as well as three main stream turbulence modelling strategies (\Cref{sec turbulence m s}).
+
+\section{Governing Equations} \label{sec governing eq}
+
+The simulations were carried out by applying a non-commercial FORTRAN code obtained from Prof. Ming Zhao in Western Sydney University. The code's governing equations are the two-dimensional incompressible Navier-Stokes equations. The Arbitrary Lagrangian Eulerian (ALE) scheme was implemented to move the boundaries of the cylinder surface. In the ALE scheme, the motion of nodes on computational mesh was configured to be independent of the fluid velocity to avoid excessive mesh distortion. Here the velocity $ (u,v) $, the time $ t $, the coordinate $ (x,y) $, and the pressure $ p $ are non-dimensionalised as $ (u,v)=(\widetilde{u},\widetilde{v})/(f_nD) $, and $ p=\widetilde{p}/(\rho f^2_n D^2) $, where the dimensional parameters are noted by tilde, D is the diameter of a circular cylinder, $ f_n=\sqrt{k/m}/2\pi$ is the structural natural frequency of the system, and $ \rho $ is the fluid density. The non-dimensional incompressible NS equations with ALE method can thus be expressed as \Cref{eqns2d,eqpoison}: 
+\begin{equation} \label{eqns2d}
+	\frac{\partial u_i}{\partial t} + (u_{j}-u_{j,mesh})+\frac{\partial u_j}{\partial x_j} + \frac{\partial p}{\partial x_i} = \frac{ V_r}{Re_m} \frac{\partial^2 u_i}{\partial x_j \partial x_j}
+	%dNS 2D ALE
+\end{equation}
+\begin{equation} \label{eqpoison}
+	\frac{\partial u_i}{\partial x_i}=0
+	%Pressure Poison
+\end{equation}
+where $ x_1=x $ and $ x_2=y $ are the Cartesian coordinates; $ u_i $ is the fluid velocity component in the direction of $ x_i $; $ u_{j,mesh} $ is the velocity of corresponding moving mesh nodes; $ \ur= U/(f_nD)$ is the non-dimensional free stream velocity; $ Re_m=U_{m1}D/ \widetilde{\nu} $ is Reynolds number. This non-dimensional method also results in cylinder's oscillation frequency non-dimensionalised as $ f=\widetilde{f}/f_n $.
+
+In terms of cylinder's motion, the vibration of 1DOF elastically mounted cylinder is described as \Cref{eqn2}: 
+\begin{equation} \label{eqn2}
+	\frac{\partial^2 y}{{\partial t}^2}+4 \pi \zeta \frac{\partial y}{{\partial t}}+4\pi^2y=\frac{2}{\pi}\frac{\ur^2 C_y}{m^*}
+	%motion of cylinder with restoring force
+\end{equation}
+where $ y $ is the cylinder's displacement in $ y $ direction; $ \zeta=c/(2\sqrt{km})=0 $ is the damping ratio with c and k being the damping constant and spring stiffness of the system, respectively; and $ C_y=F/0.5 \rho D U^2 $ is the force coefficient in the $ y $ direction with $ F $ being the hydrodynamic force on the cylinder in the $ y $ direction.
+
+
+
+\section{Finite Element Method} \label{sec fem}
+
+As my research was carried out with the code implementing finite element method (FEM), I present in this section a brief description and explanation of it.
+
+FEM is commonly introduced as a special case of Galerkin methods \cite{aboutfem2016}, which are a class of numerical analysis methods for converting a continuous operator problem (e.g.\ a differential equation) into a discrete problem. The application of Galerkin methods is principally equal to applying the variational method of parameters to a function space by transforming the equation into a weak formulation. Typically some constraints are then applied to the function space to characterize the space with a finite set of basis functions. \cite{galerkinmethod2016}
+
+%As the author's research is being carried out with a code implementing finite element method (FEM), here a brief and general overview is given to the FEM.
+
+The finite element method (FEM) is defined as a numerical technique for finding approximate solutions to boundary value problems for partial differential equations \cite{finiteelementmethod2016}. To be exact, it is "a general discretisation procedure of continuum mechanics problems posed by mathematically defined statements" \cite{Zienkiewicz2013}. The term "finite element" was born as a engineering analogy, and seemingly firstly used by Clough \cite{Clough1960}. FEM is also referred to as finite element analysis (FEA). 
+
+Generally speaking, the process of FEM consists of two steps. First, a large computational domain is divided into a collection of sub-domains (finite elements). Second, the simple equations that model these finite elements are then recombined into a large system of equations that models the entire problem, which is subsequently calculated from the initial values of the original problem to obtain a numerical answer. \cite{aboutfem2016}
+
+
+
+In the first step, the element equations are simple equations that locally approximate the original complex equations, which is often partial differential equations (PDE). This approximation process integrates the inner product of the residual and the weight functions and set the integral to zero. In other words, it is the minimisation of the approximation error by fitting trial functions into the PDE. The residual is the error caused by the trial functions, and the weight functions are polynomial approximation functions that project the residual. This process eliminates all the spatial derivatives from the PDE, thus approximating the PDE locally with a set of algebraic equations for steady state problems and a set of ordinary differential equations for transient problems. These equation sets are the element equations. They are linear if the underlying PDE is linear, and vice versa. Algebraic equation sets that emerge in the steady state problems are solved using numerical linear algebra methods, while ordinary differential equation sets that arise in the transient problems are solved by numerical integration using standard techniques such as Euler's method or the Runge-Kutta method. \cite{aboutfem2016}
+
+In the second step, a global system of equations is generated from the element equations through a transformation from the sub-domains' local nodes' coordinates to the domain's global nodes' coordinates. Appropriate orientation adjustments are also included in the spatial transformation. This process is often carried out by FEM software using coordinate data generated from the sub-domains. \cite{aboutfem2016}
+
+%FeM therefore involves three disciplines: engineering sciences to formulate physical laws by partial differential equations, numerical methods for the formation and solution of algebraic equations, and computing tools (soft \& hard ware) for massive calculation. \cite{dhatt2012finite}
+
+% Much progress regarding FEM has been made since early 1960s. In the analysis with discrete nature, a standard methodology has been developed over the years. The electrical or hydraulic engineer established a relationship between currents (fluxes) and potentials for each element and then assemble the system by the continuity of flow, in order to handle a network of electrical components or hydraulic conduits.
+
+The popularity and fame of FEM should be attributed to its various advantages. First and foremost, FEM can accurately represent very complex geometry and can include dissimilar material properties, which enables FEM to deal with a wide range of engineering problems, for example, solid mechanics, fluid dynamics, heat transfer and electrostatic problems. FEM can also handle complex restraints and complex loading (e.g.\ nodal load, element load and time or frequency dependent loading) \cite{deweck2004}. On the other hand, FEM also has its disadvantages. Different from analytical solutions, FEM obtains only approximate solutions, which means FEM has inherent error and does not allow the examination of system response to changes in various parameters. In addition, mistakes by users without full understanding of FEM is serious, because incorrect input will result in useless output \cite{prawoto2013integration, reddy1993introduction}. 
+
+In addition, as for FEM application in fluid mechanics, much of the earlier activity to solve fluid mechanics problems applied a "finite difference" formulation and later a derivative of this as the "finite volume" technique. Competition between FEM and finite difference technique has led to a much slower adoption of FEM in fluid mechanics than in structures. However, there are many advantages of using the FEM, which not only allows a fully unstructured and arbitrary domain but also provides an approximation which in self-adjoint problems is superior or at least equal to that provided by finite differences. \cite{Zienkiewicz2014b}
+
+%\subsection{Shape function}
+%The shape function interpolates the solution between the discrete values obtained at each mesh nodes. Therefore, appropriate functions have to be used and low order polynomials are typically chosen as shape functions. 
+
+
+%Such analyses all follow a standardised method adaptable to discrete systems. 
+
+%\cite{Zienkiewicz2013}
+%FeM is commonly introduced as a special case of Galerkin method. 
+%What is FEM and what is its applications to Fluid mechanics
+%The advantage and disadv to use FEM
+
+%SHape function? http://stochasticandlagrangian.blogspot.co.uk/2011/07/what-does-shape-function-mean-in-finite.html
+%In the finite element method, continuous models are approximated using information at a finite
+%number of discrete locations. Dividing the structure into discrete elements is called discretization.
+%Interpolation within the elements is achieved through shape functions
+
+\section{Arbitrary Lagrangian-Eulerian Method} \label{sec ALE}
+
+In the algorithms of continuum mechanics, the Lagrangian description and the Eulerian description are two most classical descriptions. In Lagrangian algorithms, each individual node of the computational mesh follows the associated material particle during motion, while in Eulerian algorithms, the computational mesh is fixed and the continuum moves with respect to the grid. The arbitrary Lagrangian-Eulerian (ALE) description was developed for combining the advantages of these classical descriptions. Meanwhile, it alleviates their drawbacks as far as possible. Moreover, the robustness and efficiency of ALE algorithm can be further improved by integrating other existing techniques (e.g.\ adaptive mesh, local remeshing and parallel computing). \cite{donea1982arbitrary,alemethod}
+
+The ALE algorithm allows the computational mesh inside the domains to move arbitrarily to optimize the shapes of elements, while the mesh on the boundaries and interfaces of the domains can move along with materials to precisely track the boundaries and interfaces of a multi-material system. Also, ALE formulations can be reduced to either Lagrangian formulations by equating mesh motion to material motion or Eulerian formulations by fixing mesh in space. As a result, the versatility of ALE method allows it to perform comprehensive engineering simulations, including heat transfer, fluid flow, fluid-structure interactions and metal-manufacturing. 
+
+
+\section{Turbulence Modelling Strategies} \label{sec turbulence m s}
+
+The current research is using two-dimensional (2D) direct numerical simulation (DNS). In other words, the Navier-Stokes equations are solved directly by the code without a turbulence model. The application of 2D-DNS is justified by the simple geometry (two cylinders) and a low Reynolds number $ Re_m  =100 $. Nevertheless, future researches may investigate the influence of turbulence on the simulation results, especially on high Reynolds numbers. 
+%TD edit for the change
+Therefore, here I present an introduction to the turbulence phenomenon, as well as three main categories of turbulence modelling strategies.
+
+
+
+%In the field of fluid dynamics, turbulence is a flow regime featuring chaotic changes in pressure and flow velocity. Compared to laminar flows with low $ Re $, turbulent flows with high $ Re $ are much more irregular and intermittent \cite{Tennekes1972, turbulence2016,celik1999introductory}. 
+
+%Although turbulence is a commonly observed phenomenon not only in many engineering applications, the exact physical nature of turbulence has not been fully understood, yet it can be modelled to a sufficient degree of accuracy in numerical simulations \cite{Zhiyin2015}. The major difficulty of modelling is encountered in the small time-scales of the velocity oscillations, as well as non-linearities and statistical imponderables of turbulence phenomena. This unpredictability has led to the emergence of the time averaged forms of the governing equations, resulting in terms involving higher order correlations of fluctuating quantities of flow variables. Semi-empirical mathematical models have been introduced for calculating these unknown correlations, which are the basis for turbulence modelling. \cite{Tennekes1972,turbulence2016,celik1999introductory}
+
+%Turbulence is always three-dimensional (3D) and unsteady with a large range of scale motions. Therefore, a main issue with numerical simulation (as well as measurement) of turbulence is the vast range of scales that must be resolved. The applied computational domain size must be at least in an order of magnitude larger than the scales characterising the turbulence energy, while the computational mesh must be dense enough to resolve the smallest dynamically significant length-scale (the Kolmogorov micro-scale \cite{Landahl1992}) for accurate simulation. \cite{Zhiyin2015}
+
+Turbulence is a commonly observed phenomenon in many engineering applications (e.g.\ fluid flow with high $ Re $ \cite{princetonTransiTur}). Turbulence is always three-dimensional (3D) and unsteady with a large range of scale motions \cite{Zhiyin2015}. What is more, the instantaneous range of scales in turbulent flows surges with the Reynolds number \cite{Moin1998}. Exact physical nature of turbulence has not been fully understood, yet it can be modelled to a sufficient degree of accuracy in numerical simulations \cite{Zhiyin2015}. A main issue with numerical simulation (as well as measurement) of turbulence is the vast range of scales that must be resolved. To deal with it, the applied computational domain size must be at least in an order of magnitude larger than the scales characterising the turbulence energy, while the computational mesh must be dense enough to resolve the smallest dynamically significant length-scale (the Kolmogorov micro-scale \cite{Landahl1992}) for accurate simulation \cite{Zhiyin2015}. 
+
+In CFD, turbulent flow simulation strategies can be divided into three categories: Direct Numerical Simulation (DNS), Large Eddy Simulations (LES), and Reynolds Averaged Navier-Stokes Simulations (RANS). DNS numerically solves the full unsteady Navier-Stokes equations, and is the most accurate method of solving turbulence in fluids \cite{eggenspieler2012,sengupta2008}. DNS provides complete knowledge, unaffected by approximations, at all points and times considered. However, it has two major drawbacks - its extreme computational cost, and severe limitation on the maximum Reynolds number that can be considered, which means it is more of a research tool rather than for industrial applications \cite{coleman2010}. LES only resolves the large scales of motion, and models the small scales of motion, via a low-pass filtering of the Navier-Stokes equations. Compared with DNS, the computational cost of LES is reduced, yet the small-scale information is also lost \cite{largeeddysimulation2015,barcock2014}. RANS extracts the time-averaged quantities of fluid motion, discarding the fluctuating quantities. For most of the industrial applications, RANS can provide the required accuracy, and is less demanding for computational resources compared with LES. Nevertheless, RANS models' accuracy does not improve with the mesh resolution when the fineness of mesh goes beyond a certain level \cite{reynoldsaveragednavierstokesequations2015,eggenspieler2012}. 
+
+\subsection{Direct numerical simulation}
+
+The irregular and random behaviour of turbulence can be represented by a fairly simple set of equations -- the Navier-Stokes equations. What is more, there is no analytical solutions to turbulent flows. Therefore, a complete description of a turbulent flow, where the flow variables (e.g.\ velocity and pressure) are a function of space and time, can only be achieved by numerical solutions of the Navier-Stokes equations. These numerical solutions are then termed as "direct numerical simulations" (DNS). \cite{Moin1998}
+
+%What are the largest and smallest scales that need to be resolved? Along statistically inhomogeneous directions, physical parameters such as channel width, boundary layer thickness, or mixing layer thickness determine the largest scales. Along homogeneous directions, where periodic boundary conditions are imposed, two-point correlations of the solution are required to decay nearly to zero within half the domain, to ensure proper statistical representation of the large scales. 
+
+
+In terms of the mesh density requirement, the Kolmogorov length scale, $ \eta = (\widetilde{\nu}^3/\varepsilon)^{1/4} $, has been a common standard for the smallest scale that requires resolving, where $ \epsilon $ is the average dissipation rate of turbulence kinetic energy per unit mass, and $ \widetilde{\nu} $ is the fluid kinematic viscosity \cite{Landahl1992}. Nevertheless, this requirement may be conservative. The smallest resolved length-scale is required to be of O($ \eta $), not equal to $ \eta $ \cite{Moin1998}. For example, Moser \& Moin \cite{Moser1987} found that most of the dissipation in the curved channel occurs at scales greater than 15$ \eta $ (based on average dissipation).
+
+%
+
+%It appears that the relevant requirement to obtain reliable first and second order statistics is that the resolution be fine enough to accurately capture most of the dissipation. The smallest lengthscale that must be accurately resolved depends on the energy spectrum, and is typically greater than the Kolmogorov lengthscale; e.g. Moser & Moin (1987) note that most of the dissipation in the curved channel occurs at scales greater than 15η (based on average dissipation).
+
+DNS is a useful tool for turbulence studies. Significant insight into turbulence physics has been gained from DNS of certain idealised flows that cannot be easily attained in the laboratory. \cite{Moin1998}
+
+\subsection{Large eddy simulation}
+
+Large Eddy Simulation (LES) is a turbulence modelling strategy that falls between RANS and DNS in terms of computational time and simulation accuracy. The core idea of LES is to cut the computational cost by avoiding the smallest length scales of the turbulent flow simulation, i.e.\ the most computationally consuming part, through low-pass filter of the Navier-Stokes equations \cite{largeeddysimulation2015}. A low-pass filter passes signals with a frequency lower than a certain cut-off frequency and attenuates signals with frequencies higher than the cut-off frequency \cite{wikiLowpass}, which can be viewed as a time- and spatial-averaging. The low-pass filter removes small-scale information from the numerical solution. However, the unresolved small-scale turbulent effect on the flow field must be modelled, as the filtered small-scale information is necessary for problems sensitive to small-scale turbulence \cite{largeeddysimulation2015}, such as near-wall flows \cite{Balaras2002,Spalart2009}, reacting flows \cite{Pitsch2006}, and multiphase flows \cite{Fox2012}.
+
+LES came out first in 1963 by Smagorinsky \cite{Smagorinsky1963}. For LES applications in early days, it was applied to flow problems with simple geometry and low Reynolds numbers, such as homogeneous turbulence, mixing layers, plane channel flows. Now focus of LES researches has shifted to more complex configurations where the RANS approach has failed. Nevertheless LES has not replaced RANS models and cannot replace it for the near future to become the main computational analysis tool for practical engineering problems. That is because of two main reasons: firstly, although computing power has developed rapidly for decades, it is still overly consuming to perform LES for practical engineering flow problems. Secondly, LES is still not mature enough, so users without sufficient knowledge can hardly achieve outputs with satisfying fidelity. For the foreseeable future LES will not become a design tool that can be employed by persons without extensive experience on LES techniques. \cite{Zhiyin2015}
+
+In addition, despite the traditional LES method, there are also some related approaches such as ILES (Implicit LES) or called MILES (Monotone Integrated LES), VLES (Very LES) and the hybrid LES/RANS approach.
+
+
+
+%L ES only resolves the large scales of motion, and models the small scales of motion, via a low-pass filtering of the Navier-Stokes equations. Compared with DNS, the computational cost of LES is reduced, yet the small-scale information is also lost \cite{largeeddysimulation2015,barcock2014}.
+
+
+
+\subsection{Reynolds-averaged Navier–Stokes simulation}
+
+
+%RE=100 in the Laminar area or not? check the book
+
+Among various semi-empirical mathematical models, the k-omega model is a commonly used and extensively tested turbulence model. The model enables the closure of Reynolds-averaged Navier-Stokes (RANS) equations. As a two-equation model, k-omega model include two extra transport partial differential equations to represent the turbulent properties of the flow with two variables: $ k_t $ and $ \omega_t $, where $ k_t $ is the turbulence kinetic energy while $ \omega_t $ is the specific rate of dissipation from turbulence kinetic energy $ k_t $ into internal thermal energy. $ k_t $ stands for the energy in the turbulence, while $ \omega_t $ stands for the scale of the turbulence. \cite{komegacfdwiki,komegawikip}
+
+\nomenclature[r]{$ k_t $}{Turbulence kinetic energy}
+\nomenclature[g]{$ \omega_t $}{Specific rate of dissipation from turbulence kinetic energy into internal thermal energy}
+
+As a hybrid model combining the k-omega and the k-epsilon models, SST k-omega model is one of the most validated models. The shear stress transport (SST) formulation brings together the best of k-omega and k-epsilon. A blending function is used to activate the Wilcox model near the wall and the k-epsilon model in the free stream, which makes the model applicable all the way down to the wall through the viscous sub-layer. The SST k-omega model can therefore be used as a Low-Re turbulence model without any extra damping functions. In addition, the k-epsilon model is activated in the free-stream condition in order to avoid the k-omega model's over-sensitivity to the inlet free-stream turbulence properties. SST k-omega model is often credited for its good behaviour in adverse pressure gradients and separating flow, as well as the accuracy for solving flow near wall. On the other hand, the SST k-omega model produces excessively large turbulence levels in regions with large normal strain (e.g.\ stagnation regions and regions with strong acceleration), which is less profound in a k-epsilon model. Also, the SST model sometimes has slow convergence, as a result, the initial conditions are often achieved by k-epsilon or k-omega models.
+\cite{sstkocfdwiki,sstkomega2013}
+
+%PETROV-GALERKIN/ upwind?
+%SST k-omega, which is also implemented in the current code as an optional turbulence model
+
+%ADD LES and DNS
+
+
+
+
+
+
+%==============

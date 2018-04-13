@@ -1,0 +1,47 @@
+
+
+\chapter{Introduction} \label{cha Introduction}
+
+%motivation ,ojectives ,outline of report
+\section{Motivation}
+The motivation of this Ph.D.\ project is to mitigate negative impacts of multi-cylinder vortex-induced vibration (VIV) on structures such as heat exchangers, marine cables, chimneys, offshore pipelines bridges, and skyscrapers. Also, many real contexts of VIV problems often involve a cluster of cylindrical structures, and it is therefore necessary to investigate how the response of one cylinder affects the response of another in its wake \cite{mit:advVIV} or, for further simplification, in still water. For example, typically in oil industry, vortex-induced vibration causes fatigue damage of offshore oil exploration or production risers. Both current flows and top-end vessel motions actuate these slender structures, and the vibrating structures also interact with each other by passing momentum through the fluid, giving rise to the flow-structure relative motion and causing VIV \cite{wiki:VIV}. In addition, giant oil companies such as BP, ExxonMobil, and Shell are known to have supported the VIV research \cite{CenterforOceanEngineeringMITCambridgeMA}. This study hopes to ultimately obtain a deeper understanding of the physics for interaction between fluid and multiple cylinders as well as conclusions valuable for engineering design optimisation.
+
+\section{Objectives}
+For decades, VIV has been a classic topic in the field of fluid-structure interaction. However, VIV for both single cylinder and multi-cylinder are still to be fully understood and require further studies. Existing multi-cylinder research showed its limitation that all physical or numerical experiments were conducted under an external flow, and there has never been any study in still water. Also, it seems that current multi-cylinder investigation are constrained to description of flow pattern and cylinder response modes, and are rather qualitative than quantitative compared with single cylinder VIV. 
+
+Consequently, during my first year, the problem investigated is the interaction between two cylinders immersed in otherwise still water: One cylinder (C1) undergoes forced vibration that disturbs the fluid, whereas another cylinder (C2), which has one-degree-of-freedom (1DOF), vibrates correspondingly under the action of the imbalanced hydrodynamic force. This configuration excludes the effects caused by the flow, which allows the investigation to focus on the mechanism of interaction between the two oscillating cylinders. A two-dimensional (2D) numerical model based on Navier-Stokes (NS) equations and finite element method (FEM) was applied to investigate the interaction between fluid and multiple cylinders in still water. 
+
+My investigation in the first year has focused on cases with constant Reynolds number $ Re_m =100 $ and mass ratio $ m^* =2.5$. The interpretation of results has concentrated on how the passive cylinder C2 responded to the oscillation of the actuating cylinder C1 through the induced fluid motion (see \Cref{sec interconlude} for details), while the reasons of this response behaviour is still to be discussed in the future (see \Cref{sec future work}).
+
+The objective of my future Ph.D.\ research is to further approach the engineering reality by the following ways and discuss the underlying physics. The degree of freedom (DOF) for responding cylinder will be increased from 1DOF to 2DOF. The 2D numerical model will be replaced by another 3D model to test the influence of 3D turbulent flows on the responding cylinder. Reynolds-averaged Navier–Stokes simulation (RANS) or large eddy simulation (LES) may be implemented instead of direct numerical simulation (DNS) to conduct affordable numerical simulations in high Reynolds number. At last, the flow condition may also be employed. In addition, the reason why fluid and cylinders interact in such a way will be discussed and compared with available theories. 
+
+
+%\begin{enumerate}
+%	\item The amplitude of C2 reached its maximum when the frequency of C1 was close to 80\% of the C2's structural natural frequency ($ f_n $). 
+%	\item The increase of C1's amplitude led to the rise of C2's amplitude, but the decrease of the amplitude magnification factor ($ A_2/A_1 $) and the slight decrease of the resonance frequency.
+%	\item The vibration centre of C2 shifted away from the initial location for cases with $ \widetilde{G}/D=3 $, and the shift became increasingly obvious with the increase of $ A_1 $ and $ f_1 $.
+%	\item For cases with $ A_1=G/2 $, the values of maximum $ A_2/A_1 $ were above 1.0, at $ G<0.4 $.
+%\end{enumerate}
+
+% Furthermore, this study hopes to offer a deeper understanding for interaction between fluid and multiple cylinders while also paying attention to conclusions valuable for engineering design optimisation.
+
+
+%Consequently, the risers also interact with each other by passing momentum through the fluid between them, which can be simplified as a case mentioned in section \label{sec:casesetup}. 
+
+%investigate the mechanism of multi-cylinder vortex-induced vibration (VIV) and thus
+
+% In terms of research methods, with the progress of time, research tools for VIV have been migrating from physical experiments to numerical simulations, because compared with physical experiments, numerical simulations yields better economical efficiency and is more informative. Therefore,
+%This report consists of five chapters: Introduction, Literature Review, Numerical Method, Numerical Results, and Summary \& Future Plan. 
+
+
+\section{Outline of Report}
+%This report consists of five chapters: Introduction, Literature Review, Numerical Method, Numerical Results, and Summary \& Future Plan.
+%Introduction (\Cref{cha Introduction}) is a map of the report. Literature Review (\Cref{cha Literature Review}) summarises and reviews previous researches about flow-cylinder interaction with one (\Cref{sec:VIV1}), two (\Cref{sec:fa2}), or more than two (\Cref{sec:fa>2}) cylinders. Numerical Method (\Cref{cha Numerical Method}) presents the governing equations for a currently applied model (\Cref{sec governing eq}) and explains computational techniques involved (\Cref{sec fem,sec turbulence m s,sec ALE}). Numerical Results (\Cref{cha: numerical results}) demonstrates simulation results with curious phenomena observed and useful conclusions discovered. Summary \& Future Plan concludes entire report and points out future research direction, specified by a Gantt chart.
+The remainder of this report is structured as follows:
+\begin{itemize}
+  %\item Introduction (\Cref{cha Introduction}) is a map of the report;
+  \item Literature Review (\Cref{cha Literature Review}) summarises and reviews previous researches about flow-cylinder interaction of one (\Cref{sec:VIV1}), two (\Cref{sec:fa2}), or more than two (\Cref{sec:fa>2}) cylinders;
+  \item Numerical Method (\Cref{cha Numerical Method}) explains the computational techniques related to the current numerical model (\Cref{sec fem,sec turbulence m s,sec ALE}) and presents the governing equations for the current model (\Cref{sec governing eq});
+  \item Numerical Results (\Cref{cha: numerical results}) demonstrates simulation results with curious phenomena observed and useful conclusions discovered;
+  \item Summary \& Future Plan (\Cref{cha summary}) draws conclusion for the entire report and points out future research direction accompanied by a Gantt chart.
+\end{itemize}

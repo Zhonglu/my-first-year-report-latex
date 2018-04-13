@@ -1,0 +1,83 @@
+\begin{appendices} % Using appendices environment for more functunality
+	\crefalias{chapter}{appsec}
+\chapter{Deduction of equations} \label{ap:deducequ}
+This appendix presents the process of deduction from equations \Cref{eq:1a,eq:2,eq:3} to \Cref{eq:4,eq:5}:
+
+\setlength{\belowdisplayskip}{0.3pt} \setlength{\belowdisplayshortskip}{0.3pt}
+\setlength{\abovedisplayskip}{0.5pt} \setlength{\abovedisplayshortskip}{0.5pt}
+To prove:
+\begin{align*}
+	\frac{f}{f_n}&=[1-\frac{C_{y_0}}{4\pi^2}cos\phi\frac{\rho D^2}{2M}(\frac{U}{f_nD})^2\frac{D}{y}]^{1/2}=\sqrt{\frac{m^*}{m^*+C_{EA}}}\\
+	%%
+	\frac{  A}{D} &=\frac{C_{y_0}}{8\pi^2}sin\phi \frac{\rho D^2}{2 M\zeta} (\frac{U}{f_n D})^2  \frac{  f_n  }{    { f} }=\frac{1}{4 \pi ^3}  \frac{ C_{y_0} sin \phi}{m^* \zeta} (\frac{U}{fD})^2 \frac{f}{f_{n}}\\
+\end{align*}
+Start of proof:
+\begin{gather*}
+	m\ddot{y}+c\dot{y}+ky=F(t)  \\
+	\because M=m/L \qquad c=4\pi f_n M \zeta \qquad f_n=(K/M)^{1/2} / 2\pi \qquad C_y=2F(t)/ \rho U^2 D \\
+	\therefore M\ddot{y}+4\pi f_n \zeta M \dot{y}+4{\pi}^2{f_n^2} M y=C_y \rho U^2 D /2\\
+	\because   \ddot{y}=-A\omega^2 sin(\omega t) \qquad \dot{y}=A \omega cos(\omega t) \qquad y(t)=Asin(\omega t) \qquad C_y(t)=C_{y_0} sin(\omega t+\phi) \\
+	\therefore -MA\omega^2 sin(\omega t)+4\pi f_n \zeta M A \omega cos(\omega t)+4{\pi}^2{f_n^2} M Asin(\omega t)= 0.5 \rho U^2 D C_{y_0} sin(\omega t+\phi)\\
+	\therefore -MA\omega^2 sin(\omega t)+4\pi f_n \zeta M A \omega cos(\omega t)+4{\pi}^2{f_n^2} M Asin(\omega t)= 0.5 \rho U^2 D C_{y_0} sin(\omega t+\phi)
+\end{gather*}
+\begin{multline*}
+	\therefore -MA\omega^2 sin(\omega t)+4\pi f_n \zeta M A \omega cos(\omega t)+4{\pi}^2{f_n^2} M Asin(\omega t)= \\0.5 \rho U^2 D C_{y_0} [sin(\omega t)cos(\phi)+sin(\phi)cos( \omega t)]
+\end{multline*}
+\begin{multline*}
+	\therefore (-MA\omega^2 +4{\pi}^2{f_n^2} M A)sin(\omega t) +4\pi f_n \zeta M A \omega cos(\omega t)= \\ [ 0.5 \rho U^2 D C_{y_0} cos(\phi)] sin(\omega t) + [0.5 \rho U^2 D C_{y_0} sin(\phi)] cos( \omega t)
+\end{multline*}
+By equating sin and cos terms:
+\begin{align*}
+	\therefore -MA\omega^2 +4{\pi}^2{f_n^2} M A &= 0.5 \rho U^2 D C_{y_0} cos(\phi) & 4\pi f_n \zeta M A \omega&= 0.5 \rho U^2 D C_{y_0} sin(\phi)\\
+	%%
+	\therefore -(\frac{\omega}{f_n})^2 +4{\pi}^2  &= \frac{\rho U^2 D C_{y_0} cos(\phi)}{2 MAf_n^2}  & 4\pi \zeta {\omega} &= \frac{ \rho U^2 D C_{y_0} sin(\phi)}{2MAf_n}\\
+\end{align*}
+\begin{gather*}
+	also\because \omega=2 \pi f\\
+\end{gather*}
+\begin{align*}
+	\therefore -(\frac{2 \pi f}{f_n})^2 +4{\pi}^2  &= \frac{\rho U^2 D C_{y_0} cos(\phi)}{2 MAf_n^2}  
+	%
+	& 4\pi \zeta {2 \pi f} &= \frac{ \rho U^2 D C_{y_0} sin(\phi)}{2MAf_n}\\
+	%%
+	\therefore 
+	\frac{ f}{f_n}  &=\underline{[1 - \frac{C_{y_0}}{4 \pi^2} cos\phi (\frac{\rho D^2 }{2 M}) (\frac{U}{D f_n})^2 \frac{  D  }{ A}  ]^{1/2}}
+	%
+	& \frac{  A}{D} &=\underline{ \frac{C_{y_0}}{8\pi^2}sin\phi \frac{\rho D^2}{2 M\zeta} (\frac{U}{f_n D})^2  \frac{  f_n  }{f} }
+	%%
+\end{align*}
+\begin{gather*}
+\because m^*=\frac{4M}{\pi \rho D^2}
+\end{gather*}
+\begin{align*}
+	%%
+	\therefore
+		\frac{f}{f_n}& = \underline{{  [1-\frac{C_{y_0}}{2\pi^3}cos\phi\frac{1}{m^* }(\frac{U}{f_nD})^2\frac{D}{A  }]^{1/2}	}
+		}
+	%
+	&
+	\frac{A}{D}&= \underline{ \frac{1}{4 \pi ^3}  \frac{ C_{y_0} sin \phi}{m^* \zeta} (\frac{U}{fD})^2 \frac{f}{f_{n}} }			
+	%%	
+\end{align*}
+\begin{align*}
+	\therefore
+	\frac{f}{f_n}&=[1-\frac{C_{y_0}}{4\pi^2}cos\phi\frac{\rho D^2}{2M}(\frac{U}{f_nD})^2\frac{D}{A  }]^{1/2}\\
+	&=[1-\frac{C_{y_0}}{2\pi^3}cos\phi\frac{1}{m^* }(\frac{U}{f_nD})^2\frac{D}{A  }]^{1/2}\\
+	&=[1-\frac{1}{2\pi^3}\frac{C_{y_0} cos\phi}{A/D}(\frac{U}{fD})^2\frac{f^2}{f_n^2 m^*   }]^{1/2}\\
+	also \because C_{EA}&=\frac{1}{2 \pi ^3} \frac{ C_{y_0} cos \phi}{A/D} (\frac{U}{fD})^2 \\
+	%
+	\therefore
+	\frac{f}{f_n}&=[1-C_{EA}\frac{(f/f_n)^2}{ m^*   }]^{1/2}\\
+	(\frac{f}{f_n})^2&=1-C_{EA}\frac{(f/f_n)^2}{ m^*   }\\
+	(\frac{f}{f_n})^2 m^*&=m^*-C_{EA}(\frac{f}{ f_n   })^2\\
+	(\frac{f}{f_n})^2 (m^*+C_{EA})&=m^*\\
+	%%
+	\therefore
+	\frac{f}{f_n}&=\underline{ \sqrt{\frac{m^*  }{(m^*  +C_{EA})}} }\\
+\end{align*}
+End of proof.
+
+%\include{Appendix1/appendix1}
+%\include{Appendix2/appendix2}
+
+\end{appendices}

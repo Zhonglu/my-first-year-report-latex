@@ -1,0 +1,10 @@
+@article{lu1996calculation,
+  title={Calculation of the timing of vortex formation from an oscillating cylinder},
+  author={Lu, X-Y and Dalton, C},
+  journal={Journal of Fluids and Structures},
+  volume={10},
+  number={5},
+  pages={527--541},
+  year={1996},
+  publisher={Elsevier}
+}
