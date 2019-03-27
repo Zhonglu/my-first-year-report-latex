@@ -4,7 +4,7 @@ I wrote this report based on "PhD thesis template for Cambridge University Engin
 
 I recommand TeXstudio 2.12.6 for editting.
 
-This is the LaTex version of the copy here:
+This is the LaTex source code of the PDF file here:
 https://www.researchgate.net/publication/315614869_First_year_report_Numerical_Study_of_the_Interaction_Between_Fluid_and_Multiple_Cylinders
 
 Other publications can be found here: https://www.researchgate.net/profile/Zhonglu_Lin
